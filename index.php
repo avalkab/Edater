@@ -79,8 +79,8 @@ class Edater
 	{
 		$zip = new ZipArchive;
 		$res = $zip->open('test.zip');
-	    $zip->extractTo('updates');
-	    $zip->close();
+	    	$zip->extractTo('updates');
+		$zip->close();
 	}
 
 	public function createFullPath( $path = null )
@@ -104,7 +104,7 @@ class Edater
 }
 
 // CLIENT
-$edater = new Edater( 'http://www.fashionational.com/update/test.zip' );
+$edater = new Edater( 'http://www.yoursite.com/update/test.zip' );
 $edater->downloadPackages();
 $edater->openZip();
 $edater->updatePackages();
