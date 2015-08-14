@@ -1,18 +1,28 @@
 <?php
 set_time_limit(0);
 
+/**
+*	Update your files of project with Edater.
+* 
+*	@author Erhan Sönmez <erhan.sonemz@hotmail.com.tr>
+*	@package Updater
+*	@version 0.0.2
+*/
+
 class Edater
 {
-	private $host = null;
-	
-	protected $handle = null;
-	protected $data = null;
+	protected $handle 				= null;
+	protected $data 				= null;
 
-	private $file_settings_path = 'updates/version.json';
-	private $file_settings = null;
+	private $host 					= null;
 
-	private $downloaded_filename = 'test.zip';
+	private $file_settings_path 	= 'updates/version.json';
+	private $file_settings 			= null;
+
+	private $downloaded_filename 	= 'test.zip';
 	private $downloaded_file_handle = null;
+
+	public $messages 				= array();
 
 	function __construct( $host = 'http//localhost/' )
 	{
@@ -79,8 +89,8 @@ class Edater
 	{
 		$zip = new ZipArchive;
 		$res = $zip->open('test.zip');
-	    	$zip->extractTo('updates');
-		$zip->close();
+	    $zip->extractTo('updates');
+	    $zip->close();
 	}
 
 	public function createFullPath( $path = null )
@@ -101,12 +111,71 @@ class Edater
 			}
 		}
 	}
+
+	/*
+		IMPORTANT LEVELS
+
+		x.1.1 - RED, 	High
+		1.x.1 - ORANGE, Medium
+		1.1.x - GREEN, 	Low
+
+	*/
+	public function versionCheck( $current = null )
+	{
+		$digits = $this->versionDigitsMatch( $current );
+
+		foreach ( $digits as $key => $value )
+		{
+			if ( $value == 1 )
+			{
+				switch ( $key )
+				{
+					case 0:
+						$level = 'High';
+					break;
+
+					case 1:
+						$level = 'Medium';
+					break;
+
+					case 2:
+						$level = 'Low';
+					break;
+				}
+				$this->messages[] = ' You hava a <strong>'.$level.'</strong> level update. Current is <strong>'.$current.'</strong> and new <strong>'.$this->file_settings->version.'</strong>.';
+			}
+		}
+
+		print_r( $this->messages );
+	}
+
+	public function versionDigitsMatch( $version = null )
+	{
+		if ( preg_match( '/^[0-9].[0-9].[0-9]$/', $version ) == 1 )
+		{
+			$current_version = explode( '.', $version );
+			$new_version = explode( '.', $this->file_settings->version );
+
+			return array(
+
+				0 => ( $current_version[0]<$new_version[0] ? 1 : 0 ) ,
+				1 => ( $current_version[1]<$new_version[1] ? 1 : 0 ) ,
+				2 => ( $current_version[2]<$new_version[2] ? 1 : 0 )
+
+			);
+		}
+		else
+		{
+			exit( 'Ignored version.' );
+		}
+	}
 }
 
-// CLIENT
-$edater = new Edater( 'http://www.yoursite.com/update/test.zip' );
+// Client side
+$edater = new Edater( 'http://www.fashionational.com/update/test.zip' );
 $edater->downloadPackages();
 $edater->openZip();
-$edater->updatePackages();
+$edater->versionCheck( '0.0.1' );
+#$edater->updatePackages();
 
 ?>

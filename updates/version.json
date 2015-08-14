@@ -1,0 +1,17 @@
+{
+	"version":"0.0.2",
+	"files":{
+			"Url.php":{
+				"source":"\\Url",
+				"destination":"\\app\\lib\\Url"
+			},
+			"Request.php":{
+				"source":"\\Request",
+				"destination":"\\app\\lib\\Request"
+			},
+			"Secure.php":{
+				"source":"\\Request\\Secure",
+				"destination":"\\app\\lib\\Request\\Secure"
+			}
+	}
+}
