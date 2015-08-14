@@ -115,9 +115,9 @@ class Edater
 	/*
 		LEVELS
 
-		x.1.1 - RED, 	High
-		1.x.1 - ORANGE, Medium
-		1.1.x - GREEN, 	Low
+		x.1.1 - High
+		1.x.1 - Medium
+		1.1.x - Low
 
 	*/
 	public function versionCheck( $current = null )
