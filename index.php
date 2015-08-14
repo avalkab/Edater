@@ -4,7 +4,7 @@ set_time_limit(0);
 /**
 *	Update your files of project with Edater.
 * 
-*	@author Erhan Sönmez <erhan.sonemz@hotmail.com.tr>
+*	@author Erhan Sönmez <erhan.sonmez@hotmail.com.tr>
 *	@package Updater
 *	@version 0.0.2
 */
