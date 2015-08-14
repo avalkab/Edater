@@ -113,7 +113,7 @@ class Edater
 	}
 
 	/*
-		IMPORTANT LEVELS
+		LEVELS
 
 		x.1.1 - RED, 	High
 		1.x.1 - ORANGE, Medium
